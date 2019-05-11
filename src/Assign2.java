@@ -11,11 +11,15 @@ public class Assign2
 
    public static void main(String[] args)
    {
+      
       int bet = 0;
       int multiplier = 0;
       int winnings = 0;
+      
+      //I DONT THINK I WANT TO DECLARE THESE VARIABLES HERE BUT I DON'T KNOW
+      //ANOTHER WAY
       TripleString thePull = pull();
-      int numPulls = thePull.MAX_PULLS;
+      int numPulls = thePull.MAX_PULLS; //get a THIS SHOULD BE ACCESSED IN A STATIC WAY ERROR BUT STILL WORKS
      
       do
       {

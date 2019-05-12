@@ -36,7 +36,7 @@ public class Assign2
             multiplier = getPayMultiplier(thePull);
             winnings = bet * multiplier;
             thePull.saveWinnings(winnings);
-            display(thePull, winnings);
+            System.out.println(display(thePull, winnings));
          }
       }while(bet != 0 && numPulls != 0);
       
@@ -68,7 +68,7 @@ public class Assign2
      
      do
      {
-     System.out.println("How much would you like to bet (1 - 100) or 0 to "
+     System.out.print("How much would you like to bet (1 - 100) or 0 to "
            + "quit? ");
      thisBet = keyboard.nextInt();
      } while(thisBet < MIN_BET || thisBet > MAX_BET);
@@ -167,18 +167,16 @@ public class Assign2
       return multiplier;
    }
    
-   public static void display(TripleString thePull, int winnings)
-   {
-      System.out.println("whirrrrr...and your pull is...");
-      System.out.println(thePull);
-      
+   public static String display(TripleString thePull, int winnings)
+   { 
       if(winnings > 0)
       {
-         System.out.println("congratulations you win: $" + winnings);
+         return "\nwhirrrrr...and your pull is...\n" + thePull + 
+               "\ncongratulations you win: $" + winnings + "\n";
       }
       else
       {
-         System.out.println("sorry, you lose.");
+         return "\nsorry, you lose.\n";
       }
    }
 }

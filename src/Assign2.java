@@ -5,55 +5,70 @@
 import java.util.*;
 import java.lang.Math;
 
-//MAIN CLASS
+//START Assign2 CLASS
 public class Assign2
 {
-
+   static Scanner keyboard = new Scanner(System.in);
+         
+   //START MAIN
    public static void main(String[] args)
    {
-      
       int bet = 0;
       int multiplier = 0;
       int winnings = 0;
+      int numPulls = 0;
       
-      //I DONT THINK I WANT TO DECLARE THESE VARIABLES HERE BUT I DON'T KNOW
-      //ANOTHER WAY
-      TripleString thePull = pull();
-      int numPulls = thePull.MAX_PULLS; //get a THIS SHOULD BE ACCESSED IN A STATIC WAY ERROR BUT STILL WORKS
-     
+      TripleString game = new TripleString();
+
       do
       {
          //getBet() will prompt the user to enter a value between MIN_BET
          //and MAX_BET and return a number between those values.
          //Those values are currently MIN_BET 0 and MAX_BET 100
          bet = getBet();
-         numPulls = numPulls - 1;
+         numPulls = TripleString.MAX_PULLS - 1;
          
          //A bet of zero ends the game per the specification
          if (bet != 0)
          {
-            thePull = pull();
-            multiplier = getPayMultiplier(thePull);
+            game = pull();
+            multiplier = getPayMultiplier(game);
             winnings = bet * multiplier;
-            thePull.saveWinnings(winnings);
-            System.out.println(display(thePull, winnings));
-         }
-      }while(bet != 0 && numPulls != 0);
+            
+            //If this pull is greater than MAX_PULLS, saveWinnings will return
+            //false and we exit the game because we are out of pulls.
+            //otherwise saveWinnings returns true and we still have pulls
+            //remaining.  Using this technique we have maintain the MAX_PULLS
+            //for the game in one place.
+            if (game.saveWinnings(winnings) == true)
+            {
+               System.out.println(display(game, winnings));
+            }
+            else
+            {
+               System.out.println("saveWinnings write to array failed");
+               break;
+            }
+
+         }     
+      } 
+      while(bet != 0 && numPulls != 0);
       
       //If the user enters a bet of zero before they exceed MAX_PULLS
       //displayWinnings(), otherwise they have reached MAX_PULLS and 
       //the game displaysWinnings() and ends.
       if (numPulls > 0)
       {
-         thePull.displayWinnings();
+         game.displayWinnings();
       }
       else
       {
          System.out.println("\nYou reached the maximum number of 40 pulls!");
-         thePull.displayWinnings();
+         game.displayWinnings();
       }
-
+   keyboard.close();  
    }
+   //END MAIN
 
    public static int getBet()
    // getBet() prompts the user for an integer between MIN_BET and MAX_BET
@@ -64,16 +79,13 @@ public class Assign2
      int MAX_BET = 100;
      int thisBet = 0;
      
-     Scanner keyboard = new Scanner(System.in);
-     
      do
      {
      System.out.print("How much would you like to bet (1 - 100) or 0 to "
            + "quit? ");
      thisBet = keyboard.nextInt();
-     } while(thisBet < MIN_BET || thisBet > MAX_BET);
-    
-     //keyboard.close();
+     } 
+     while(thisBet < MIN_BET || thisBet > MAX_BET);
      
      return thisBet;   
    }
@@ -161,9 +173,11 @@ public class Assign2
       {
          multiplier = 100;
       }
-      else
-         multiplier = 0;
-      
+      else 
+      {
+         multiplier = 0;         
+      }
+
       return multiplier;
    }
    
@@ -176,11 +190,14 @@ public class Assign2
       }
       else
       {
-         return "\nsorry, you lose.\n";
+         return "\nwhirrrrr...and your pull is...\n" +
+               thePull + "\nsorry, you lose.\n";
       }
    }
 }
+//END Assign2 CLASS
 
+//START TripleString class
 class TripleString
 {
    //The maximum number of pulls allowed as defined in the specification
@@ -318,3 +335,4 @@ class TripleString
    }   
    
 }
+//END TripleString class

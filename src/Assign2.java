@@ -16,7 +16,7 @@ public class Assign2
       int bet = 0;
       int multiplier = 0;
       int winnings = 0;
-      int numPulls = 0;
+      int numPulls = TripleString.MAX_PULLS;
       
       TripleString game = new TripleString();
 
@@ -26,7 +26,7 @@ public class Assign2
          //and MAX_BET and return a number between those values.
          //Those values are currently MIN_BET 0 and MAX_BET 100
          bet = getBet();
-         numPulls = TripleString.MAX_PULLS - 1;
+         numPulls = numPulls - 1;
          
          //A bet of zero ends the game per the specification
          if (bet != 0)
@@ -34,22 +34,15 @@ public class Assign2
             game = pull();
             multiplier = getPayMultiplier(game);
             winnings = bet * multiplier;
-            
-            //If this pull is greater than MAX_PULLS, saveWinnings will return
-            //false and we exit the game because we are out of pulls.
-            //otherwise saveWinnings returns true and we still have pulls
-            //remaining.  Using this technique we have maintain the MAX_PULLS
-            //for the game in one place.
             if (game.saveWinnings(winnings) == true)
             {
-               System.out.println(display(game, winnings));
+               display(game, winnings);
             }
             else
             {
                System.out.println("saveWinnings write to array failed");
                break;
             }
-
          }     
       } 
       while(bet != 0 && numPulls != 0);
@@ -81,8 +74,8 @@ public class Assign2
      
      do
      {
-     System.out.print("How much would you like to bet (1 - 100) or 0 to "
-           + "quit? ");
+     System.out.print("How much would you like to bet (1 - " + MAX_BET + ") or "
+           + "0 to quit? ");
      thisBet = keyboard.nextInt();
      } 
      while(thisBet < MIN_BET || thisBet > MAX_BET);
@@ -181,17 +174,18 @@ public class Assign2
       return multiplier;
    }
    
-   public static String display(TripleString thePull, int winnings)
+   public static void display(TripleString thePull, int winnings)
+   //Show the results of the specific pull after each pull
    { 
       if(winnings > 0)
       {
-         return "\nwhirrrrr...and your pull is...\n" + thePull + 
-               "\ncongratulations you win: $" + winnings + "\n";
+         System.out.println("\nwhirrrrr...and your pull is...\n" + thePull + 
+               "\ncongratulations you win: $" + winnings + "\n");
       }
       else
       {
-         return "\nwhirrrrr...and your pull is...\n" +
-               thePull + "\nsorry, you lose.\n";
+         System.out.println("\nwhirrrrr...and your pull is...\n" +
+               thePull + "\nsorry, you lose.\n");
       }
    }
 }
@@ -294,17 +288,19 @@ class TripleString
    }
    //END accessors
     
+   
+   public String toString()
    //concatenate the three strings into a single string per the specification
    //this represents the three wheels of the slot machine spin
-   public String toString()
    {
       String pullString = string1 + " " + string2 + " " + string3;
       return pullString;
    }
    
+
+   public boolean saveWinnings(int winnings)
    //Save the value of winnings to the appropriate index in the array,
    //index comes from numPulls
-   public boolean saveWinnings(int winnings)
    {  
       if(numPulls < MAX_PULLS)
       {
@@ -319,6 +315,10 @@ class TripleString
    }
    
    public void displayWinnings()
+   //At the end of the game, triggered by either the player entering 0
+   //or, the player reaching the maximum number of pulls NUM_PULLS
+   //summarize the results of each spin by displaying each element in the 
+   //pullWinnings[] and sum and display their totalWinnings
    {
       int totalWinnings = 0;
       
@@ -336,3 +336,106 @@ class TripleString
    
 }
 //END TripleString class
+
+
+/***********************SAMPLE RUN*********************************************
+How much would you like to bet (1 - 100) or 0 to quit? 5
+
+whirrrrr...and your pull is...
+7 Space BAR
+sorry, you lose.
+
+How much would you like to bet (1 - 100) or 0 to quit? 55
+
+whirrrrr...and your pull is...
+BAR BAR 7
+sorry, you lose.
+
+How much would you like to bet (1 - 100) or 0 to quit? 555
+How much would you like to bet (1 - 100) or 0 to quit? 555
+How much would you like to bet (1 - 100) or 0 to quit? -2
+How much would you like to bet (1 - 100) or 0 to quit? 5
+
+whirrrrr...and your pull is...
+BAR BAR BAR
+congratulations you win: $250
+
+How much would you like to bet (1 - 100) or 0 to quit? 5
+
+whirrrrr...and your pull is...
+BAR BAR 7
+sorry, you lose.
+
+How much would you like to bet (1 - 100) or 0 to quit? 5
+
+whirrrrr...and your pull is...
+BAR Cherries Cherries
+sorry, you lose.
+
+How much would you like to bet (1 - 100) or 0 to quit? 5
+
+whirrrrr...and your pull is...
+BAR BAR BAR
+congratulations you win: $250
+
+How much would you like to bet (1 - 100) or 0 to quit? 5
+
+whirrrrr...and your pull is...
+7 Cherries Space
+sorry, you lose.
+
+How much would you like to bet (1 - 100) or 0 to quit? 5
+
+whirrrrr...and your pull is...
+Cherries Space BAR
+congratulations you win: $25
+
+How much would you like to bet (1 - 100) or 0 to quit? 5
+
+whirrrrr...and your pull is...
+7 Cherries Cherries
+sorry, you lose.
+
+How much would you like to bet (1 - 100) or 0 to quit? 5
+
+whirrrrr...and your pull is...
+BAR Cherries Cherries
+sorry, you lose.
+
+How much would you like to bet (1 - 100) or 0 to quit? 5
+
+whirrrrr...and your pull is...
+BAR Cherries Space
+sorry, you lose.
+
+How much would you like to bet (1 - 100) or 0 to quit? 5
+
+whirrrrr...and your pull is...
+Cherries BAR Cherries
+congratulations you win: $25
+
+How much would you like to bet (1 - 100) or 0 to quit? 5
+
+whirrrrr...and your pull is...
+BAR 7 BAR
+sorry, you lose.
+
+How much would you like to bet (1 - 100) or 0 to quit? 5
+
+whirrrrr...and your pull is...
+BAR 7 Cherries
+sorry, you lose.
+
+How much would you like to bet (1 - 100) or 0 to quit? 5
+
+whirrrrr...and your pull is...
+BAR Space BAR
+sorry, you lose.
+
+How much would you like to bet (1 - 100) or 0 to quit? 0
+
+Thanks for playing at the Casino!
+Your individual winnings were:
+0 0 250 0 0 250 0 25 0 0 0 25 0 0 0 
+Your total winnings were: $550
+******************************************************************************/

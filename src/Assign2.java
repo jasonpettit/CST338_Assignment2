@@ -52,12 +52,12 @@ public class Assign2
       //the game displaysWinnings() and ends.
       if (numPulls > 0)
       {
-         game.displayWinnings();
+         System.out.print(game.displayWinnings());
       }
       else
       {
          System.out.println("\nYou reached the maximum number of 40 pulls!");
-         game.displayWinnings();
+         System.out.print(game.displayWinnings());
       }
    keyboard.close();  
    }
@@ -314,24 +314,26 @@ class TripleString
       }
    }
    
-   public void displayWinnings()
+   public String displayWinnings()
    //At the end of the game, triggered by either the player entering 0
    //or, the player reaching the maximum number of pulls NUM_PULLS
    //summarize the results of each spin by displaying each element in the 
    //pullWinnings[] and sum and display their totalWinnings
    {
       int totalWinnings = 0;
-      
-      System.out.println("\nThanks for playing at the Casino!");     
-      System.out.println("Your individual winnings were:");
-      
+      String gameResults = "\nThanks for playing at the Casino!\n"
+            + "Your individual winnings were:\n";
+    
       for (int i = 0; i < numPulls; i++)
       {
-         System.out.print(pullWinnings[i] + " ");
+         gameResults = gameResults + pullWinnings[i] + " ";
          totalWinnings = totalWinnings + pullWinnings[i];
       }
       
-      System.out.println("\nYour total winnings were: $" + totalWinnings);
+      gameResults = gameResults + "\nYour total winnings were: $" 
+            + totalWinnings;
+      
+      return gameResults;
    }   
    
 }
@@ -342,13 +344,13 @@ class TripleString
 How much would you like to bet (1 - 100) or 0 to quit? 5
 
 whirrrrr...and your pull is...
-7 Space BAR
-sorry, you lose.
+Cherries Cherries Space
+congratulations you win: $75
 
 How much would you like to bet (1 - 100) or 0 to quit? 55
 
 whirrrrr...and your pull is...
-BAR BAR 7
+BAR BAR Cherries
 sorry, you lose.
 
 How much would you like to bet (1 - 100) or 0 to quit? 555
@@ -357,67 +359,49 @@ How much would you like to bet (1 - 100) or 0 to quit? -2
 How much would you like to bet (1 - 100) or 0 to quit? 5
 
 whirrrrr...and your pull is...
+Space Cherries 7
+sorry, you lose.
+
+How much would you like to bet (1 - 100) or 0 to quit? 5
+
+whirrrrr...and your pull is...
+7 BAR BAR
+sorry, you lose.
+
+How much would you like to bet (1 - 100) or 0 to quit? 5
+
+whirrrrr...and your pull is...
+BAR BAR Cherries
+sorry, you lose.
+
+How much would you like to bet (1 - 100) or 0 to quit? 5
+
+whirrrrr...and your pull is...
+Space BAR BAR
+sorry, you lose.
+
+How much would you like to bet (1 - 100) or 0 to quit? 5
+
+whirrrrr...and your pull is...
+Cherries BAR BAR
+congratulations you win: $25
+
+How much would you like to bet (1 - 100) or 0 to quit? 5
+
+whirrrrr...and your pull is...
 BAR BAR BAR
 congratulations you win: $250
 
 How much would you like to bet (1 - 100) or 0 to quit? 5
 
 whirrrrr...and your pull is...
-BAR BAR 7
-sorry, you lose.
-
-How much would you like to bet (1 - 100) or 0 to quit? 5
-
-whirrrrr...and your pull is...
-BAR Cherries Cherries
-sorry, you lose.
-
-How much would you like to bet (1 - 100) or 0 to quit? 5
-
-whirrrrr...and your pull is...
 BAR BAR BAR
 congratulations you win: $250
 
 How much would you like to bet (1 - 100) or 0 to quit? 5
 
 whirrrrr...and your pull is...
-7 Cherries Space
-sorry, you lose.
-
-How much would you like to bet (1 - 100) or 0 to quit? 5
-
-whirrrrr...and your pull is...
-Cherries Space BAR
-congratulations you win: $25
-
-How much would you like to bet (1 - 100) or 0 to quit? 5
-
-whirrrrr...and your pull is...
-7 Cherries Cherries
-sorry, you lose.
-
-How much would you like to bet (1 - 100) or 0 to quit? 5
-
-whirrrrr...and your pull is...
-BAR Cherries Cherries
-sorry, you lose.
-
-How much would you like to bet (1 - 100) or 0 to quit? 5
-
-whirrrrr...and your pull is...
-BAR Cherries Space
-sorry, you lose.
-
-How much would you like to bet (1 - 100) or 0 to quit? 5
-
-whirrrrr...and your pull is...
-Cherries BAR Cherries
-congratulations you win: $25
-
-How much would you like to bet (1 - 100) or 0 to quit? 5
-
-whirrrrr...and your pull is...
-BAR 7 BAR
+BAR 7 Cherries
 sorry, you lose.
 
 How much would you like to bet (1 - 100) or 0 to quit? 5
@@ -429,13 +413,62 @@ sorry, you lose.
 How much would you like to bet (1 - 100) or 0 to quit? 5
 
 whirrrrr...and your pull is...
-BAR Space BAR
+BAR Cherries Cherries
+sorry, you lose.
+
+How much would you like to bet (1 - 100) or 0 to quit? 5
+
+whirrrrr...and your pull is...
+BAR Cherries Cherries
+sorry, you lose.
+
+How much would you like to bet (1 - 100) or 0 to quit? 5
+
+whirrrrr...and your pull is...
+BAR BAR BAR
+congratulations you win: $250
+
+How much would you like to bet (1 - 100) or 0 to quit? 5
+
+whirrrrr...and your pull is...
+BAR Cherries Cherries
 sorry, you lose.
 
 How much would you like to bet (1 - 100) or 0 to quit? 0
 
 Thanks for playing at the Casino!
 Your individual winnings were:
-0 0 250 0 0 250 0 25 0 0 0 25 0 0 0 
-Your total winnings were: $550
+75 0 0 0 0 0 25 250 250 0 0 0 0 250 0 
+Your total winnings were: $850
+
+***WHAT IF I ENTER A LETTER
+
+How much would you like to bet (1 - 100) or 0 to quit? t
+Exception in thread "main" java.util.InputMismatchException
+   at java.util.Scanner.throwFor(Unknown Source)
+   at java.util.Scanner.next(Unknown Source)
+   at java.util.Scanner.nextInt(Unknown Source)
+   at java.util.Scanner.nextInt(Unknown Source)
+   at Assign2.getBet(Assign2.java:79)
+   at Assign2.main(Assign2.java:28)
+   
+***WHAT IF I ENTER A SPECIAL CHARACTER
+
+How much would you like to bet (1 - 100) or 0 to quit? !
+Exception in thread "main" java.util.InputMismatchException
+   at java.util.Scanner.throwFor(Unknown Source)
+   at java.util.Scanner.next(Unknown Source)
+   at java.util.Scanner.nextInt(Unknown Source)
+   at java.util.Scanner.nextInt(Unknown Source)
+   at Assign2.getBet(Assign2.java:79)
+   at Assign2.main(Assign2.java:28)
+   
+***WHAT IF PLAYER JUST HITS RETURN
+
+How much would you like to bet (1 - 100) or 0 to quit? 
+
+
+
+
+
 ******************************************************************************/

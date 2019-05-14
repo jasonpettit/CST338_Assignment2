@@ -26,7 +26,7 @@ public class Assign2
          //and MAX_BET and return a number between those values.
          //Those values are currently MIN_BET 0 and MAX_BET 100
          bet = getBet();
-         numPulls = numPulls - 1;
+         numPulls -= 1;
          
          //A bet of zero ends the game per the specification
          if (bet != 0)
@@ -88,14 +88,10 @@ public class Assign2
    // of the TripleString class
    {
       TripleString pullString = new TripleString();
-      
-      String string1 = randString();
-      String string2 = randString();
-      String string3 = randString();
-      
-      pullString.setString1(string1);
-      pullString.setString2(string2);
-      pullString.setString3(string3);
+            
+      pullString.setString1(randString());
+      pullString.setString2(randString());
+      pullString.setString3(randString());
       
       return pullString;
    }
